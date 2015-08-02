@@ -1,8 +1,7 @@
 Rails.application.routes.draw do
 
-  root 'game#index'
+  root 'item#index'
 
-  resources :user
-  resources :places
+  resources :item
 
 end

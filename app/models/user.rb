@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
 
- belongs_to :inventory
+  has_many :items
 
 end

@@ -1,39 +1,34 @@
-Place
-  title: string
-  photo_url: string
-  desc: text
-  event_count: integer
-  event_category: string
-  
 User
-  name: string
-  brutish: float(1.0)
-  charm: float(1.0)
-  wisdom: float(1.0)
-  roguish: float(1.0)
+  first_name: string
+  last_name: string
   created_on: datetime
+  admin: boolean
+  admin_level: integer
 
+Category
+  name: string
+  replacement_cost: integer
+  
 Item
+  name: text
+  barcode: text
+  status: string
+  condition: string
+  borrow_count: integer
+  borrower_id: integer
+  category_id: integer
+  type_id: integer
+
+Type
   name: string
-  quantity: integer
-  desc: text
-  photo_url: string
-  usable: boolean
+  borrow_duration: integer
+  late_fee: float
   
-Event
-  name: string
-  event_category: string
-  probability: integer
-  desc: text
-  charm_difficulty: integer
-  wisdom_difficulty: integer
-  roguish_difficulty: integer
-  brutish_difficulty: integer
-  choices: text
-  
-Inventory
-  player_id: integer
-  items: text
+Note
+  text: text
+  item_id: integer
+  created_on: datetime
+  created_by: integer
 
 # Example table for a typical Book model.
 #

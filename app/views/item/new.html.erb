@@ -1,0 +1,45 @@
+<style>
+  label { width: 100px; vertical-align: middle;}
+</style>
+
+<h2>Add a New Item</h2>
+
+<% if @item.errors.any? %>
+<p>
+    <%@item.errors.each do |attribute, message| %>
+	<%= attribute %> : <%= message %>.
+	<br />
+	<% end %>
+</p>
+<% end %>
+
+<%= form_tag "/item" do %>
+  <div>
+    <label>Name:</label>
+    <input type="text" name="name" size="30">
+  </div>
+
+  <div>
+    <label>Barcode:</label>
+    <input type="text" name="barcode" size="30">
+  </div>
+  
+  <div>
+      <select name="category_id">
+    <% Category.all.each do |c| %>
+      <option value="<%= c.id %>"><%= c.name %></option>
+    <% end %>
+  </select>
+  </div>
+  
+  <div>
+      <select name="type_id">
+    <% Type.all.each do |t| %>
+      <option value="<%= t.id %>"><%= t.name %></option>
+    <% end %>
+  </select>
+  </div>
+  
+  <input type="submit" value="Submit">
+
+<% end %>
