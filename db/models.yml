@@ -1,0 +1,74 @@
+Place
+  title: string
+  photo_url: string
+  desc: text
+  event_count: integer
+  event_category: string
+  
+User
+  name: string
+  brutish: float(1.0)
+  charm: float(1.0)
+  wisdom: float(1.0)
+  roguish: float(1.0)
+  created_on: datetime
+
+Item
+  name: string
+  quantity: integer
+  desc: text
+  photo_url: string
+  usable: boolean
+  
+Event
+  name: string
+  event_category: string
+  probability: integer
+  desc: text
+  charm_difficulty: integer
+  wisdom_difficulty: integer
+  roguish_difficulty: integer
+  brutish_difficulty: integer
+  choices: text
+  
+Inventory
+  player_id: integer
+  items: text
+
+# Example table for a typical Book model.
+#
+# Book
+#   title: string
+#   author_id: integer
+#   price: integer
+#   summary: text
+#   hardcover: boolean
+#
+# Indent consistently!  Follow the above syntax exactly.
+# Typical column choices are: string, text, integer, boolean, date, time, and datetime.
+#
+#
+# Specifying Default Values
+# ----------------------------------------------------
+# Default column values can be specified like this:
+#    price: integer(0)
+#
+# If not specified, Boolean columns always default to false.
+#
+#
+# Convention-Based Defaults:
+# ----------------------------------------------------
+# You can omit the column type if it's a string, or if it's obviously an integer column:
+#
+#
+# Book
+#   title
+#   author_id
+#   price: integer
+#   summary: text
+#   hardcover: boolean
+#
+# Complete details are in the README file online.
+#
+# Have fun!
+
