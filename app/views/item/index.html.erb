@@ -1,4 +1,6 @@
-<p>Welcome to the item management system. <a href="/item/new">Click here to add a new item.</a></p>
+<div><p>Welcome to the item management system. <a href="/item/new">Click here to add a new item.</a></p></div>
+
+<div><p>Please click on an item's name to show details and notes about the item!</p></div>
 
 <table class="pretty">
   <tr>
@@ -10,6 +12,8 @@
 	<th><%= sortable "condition" %></th>
 	<th><%= sortable "borrow_count", "Times borrowed" %></th>
 	<th><%= sortable "borrower_id" %></th>
+	<th>Edit item?</th>
+	<th>Delete item?</th>
   </tr>
   <% for item in @items %>
     <tr>
@@ -24,8 +28,10 @@
 	  <% if item.borrower_id.nil? %>
 	  none
 	  <% else %>
-	  <%= item.user.first_name + " " + item.user.last_name %></td>
+	  <%= item.user.fullname %></td>
 	  <% end %>
+	  <td><%= link_to "x", "/item/#{item.id}/edit" %></td>
+	  <td><%= link_to "x", "/item/#{item.id}", :method => "delete" %></td>
     </tr>
   <% end %>
 </table>

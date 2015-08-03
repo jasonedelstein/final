@@ -1,0 +1,64 @@
+<div>
+  <h2><%= @item.name %></h2>
+
+  <div>
+    <p>Barcode: <%= @item.barcode %>.</p>
+  </div>
+
+  <div>
+    <p>Status: <%= @item.status %>.</p>
+  </div>
+  
+  <div>
+    <p>Condition: <%= @item.condition %>.</p>
+  </div>
+  
+  <div>
+	<p>Type: <%= @item.type.name %>.</p>
+  </div>
+  
+  <div>
+	<p>Borrow count: <%= @item.borrow_count %>.</p>
+  </div>
+  
+  <div>
+	<p>Category: <%= @item.category.name %>.</p>
+  </div>
+  
+  <div>
+    <p>Current borrower: 
+	<% if @item.borrower_id.nil? %>
+	  none.
+	  <% else %>
+	  <%= @item.user.fullname %>.</td>
+	  <% end %>
+	  </p>
+  </div>
+  
+  #there must be a better way to do the borrower find. Need to fix for next version...
+  
+  <div>
+    <p>Item created on: <%= @item.created_on.to_formatted_s(:long_ordinal) %> by 
+	  <%= User.find_by(id: @item.creator_id).fullname %>.</p>
+  </div>
+  
+  
+  <h3>Item notes</h3>
+
+  <table class="pretty">
+  <tr>
+    <th><%= sortable "Note author" %></th>
+	<th><%= sortable "Date" %></th>
+    <th><%= sortable "Note text" %></th>
+  </tr>
+  
+	<% @item.notes.each do |n| %>
+	<tr>
+	<td><%= n.user.fullname %></td>
+	<td><%= n.created_on.to_formatted_s(:long_ordinal) %></td>
+	<td><%= n.text %></td>
+	</tr>
+	<% end %>
+  </table>
+	
+</div>

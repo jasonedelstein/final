@@ -7,9 +7,15 @@ class ItemController < ApplicationController
 	helper_method :sort_column, :sort_direction
 
   def update
-    item = Item.find_by(:id => params["id"])
-	
-    item.save
+    @item = Item.find_by(:id => params["id"])
+	@item.name = params["name"]
+	@item.barcode = params["barcode"]
+	@item.category_id = params["category_id"]
+	@item.type_id = params["type_id"]
+	@item.condition = params["condition"]
+	@item.borrow_count = 0
+	@item.status = params["status"]
+	@item.save
     redirect_to root_url
   end
 
@@ -59,12 +65,10 @@ class ItemController < ApplicationController
 	  
     end
 
-  end
-
   def destroy
     @item = Item.find_by(:id => params["id"])
     @item.delete
-    redirect_to "/items"
+    redirect_to root_url
   end
 
   def show
@@ -80,3 +84,5 @@ class ItemController < ApplicationController
   def sort_direction
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
+  
+end

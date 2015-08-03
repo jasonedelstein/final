@@ -12,12 +12,14 @@ Category
 Item
   name: text
   barcode: text
-  status: string
-  condition: string
+  status: integer(0)
+  condition: integer(0)
   borrow_count: integer
   borrower_id: integer
   category_id: integer
   type_id: integer
+  created_on: datetime
+  creator_id: integer
 
 Type
   name: string
@@ -27,8 +29,8 @@ Type
 Note
   text: text
   item_id: integer
+  creator_id: integer
   created_on: datetime
-  created_by: integer
 
 # Example table for a typical Book model.
 #

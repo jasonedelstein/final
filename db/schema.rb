@@ -19,27 +19,31 @@ ActiveRecord::Schema.define(version: 0) do
   end
 
   create_table "items", force: true do |t|
-    t.text    "name"
-    t.text    "barcode"
-    t.string  "status"
-    t.string  "condition"
-    t.integer "borrow_count"
-    t.integer "borrower_id",  default: 0
-    t.integer "category_id"
-    t.integer "type_id"
+    t.text     "name"
+    t.text     "barcode"
+    t.integer  "status",       limit: 255, default: 0
+    t.integer  "condition",    limit: 255, default: 0
+    t.integer  "borrow_count"
+    t.integer  "borrower_id"
+    t.integer  "category_id"
+    t.integer  "type_id"
+    t.datetime "created_on"
+    t.integer  "creator_id"
   end
 
   add_index "items", ["borrower_id"], name: "index_items_on_borrower_id"
   add_index "items", ["category_id"], name: "index_items_on_category_id"
+  add_index "items", ["creator_id"], name: "index_items_on_creator_id"
   add_index "items", ["type_id"], name: "index_items_on_type_id"
 
   create_table "notes", force: true do |t|
     t.text     "text"
     t.integer  "item_id"
     t.datetime "created_on"
-    t.integer  "created_by"
+    t.integer  "creator_id"
   end
 
+  add_index "notes", ["creator_id"], name: "index_notes_on_creator_id"
   add_index "notes", ["item_id"], name: "index_notes_on_item_id"
 
   create_table "types", force: true do |t|
