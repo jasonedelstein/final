@@ -37,7 +37,7 @@ class ItemController < ApplicationController
   end
 
   def index
-      @items = Item.all
+      @items = Item.order(sort_column + " " + sort_direction)
     end
 
     respond_to do |format|
