@@ -1,21 +1,43 @@
-<h1>Edit a New Movie</h1>
+<h1>Edit an Item</h1>
 
-<%= form_tag "/movies/#{@movie.id}", :method => "patch" do %>
+<% if @item.errors.any? %>
+<p>
+    <%@item.errors.each do |attribute, message| %>
+	<%= attribute %> : <%= message %>.
+	<br />
+	<% end %>
+</p>
+<% end %>
+
+<%= form_tag "/item/#{@item.id}", :method => "patch" do %>
+
   <div>
-    <label>Movie Title:</label>
-    <input type="text" name="title" value="<%= @movie.title %>">
+    <label>Name:</label>
+    <input type="text" name="name" value="<%= @item.name %> size="30">
   </div>
 
   <div>
-    <label>Movie Year:</label>
-    <input type="text" name="year" value="<%= @movie.year %>">
+    <label>Barcode:</label>
+    <input type="text" name="barcode" value="<%= @item.barcode %> size="30">
   </div>
-
-  <select name="director_id">
-    <% Director.all.each do |d| %>
-      <option value="<%= d.id %>"><%= d.name %></option>
+  
+  <div>
+      <select name="category_id">
+    <% Category.all.each do |c| %>
+      <option value="<%= c.id %>"><%= c.name %></option>
     <% end %>
   </select>
+  </div>
+  
+  <div>
+      <select name="type_id">
+    <% Type.all.each do |t| %>
+      <option value="<%= t.id %>"><%= t.name %></option>
+    <% end %>
+  </select>
+  </div>
+  
+  <input type="submit" value="Submit">
 
   <input type="submit" value="Update Movie">
 
