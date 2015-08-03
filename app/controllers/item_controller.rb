@@ -1,5 +1,9 @@
 class ItemController < ApplicationController
 
+# the sortable columns code is implemented as a cool side exercise based on the code here:
+# http://railscasts.com/episodes/228-sortable-table-columns
+# I don't consider it my own code, but implementing it for my own app was fun and useful. -JE 8.2.2015
+
 	helper_method :sort_column, :sort_direction
 
   def update

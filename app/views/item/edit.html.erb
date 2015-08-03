@@ -1,0 +1,22 @@
+<h1>Edit a New Movie</h1>
+
+<%= form_tag "/movies/#{@movie.id}", :method => "patch" do %>
+  <div>
+    <label>Movie Title:</label>
+    <input type="text" name="title" value="<%= @movie.title %>">
+  </div>
+
+  <div>
+    <label>Movie Year:</label>
+    <input type="text" name="year" value="<%= @movie.year %>">
+  </div>
+
+  <select name="director_id">
+    <% Director.all.each do |d| %>
+      <option value="<%= d.id %>"><%= d.name %></option>
+    <% end %>
+  </select>
+
+  <input type="submit" value="Update Movie">
+
+<% end %>
