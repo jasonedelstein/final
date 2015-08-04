@@ -35,13 +35,38 @@
 	  </p>
   </div>
   
-  #there must be a better way to do the borrower find. Need to fix for next version...
+  <!-- there must be a better way to do the borrower find. Need to fix for next version... -->
   
   <div>
     <p>Item created on: <%= @item.created_on.to_formatted_s(:long_ordinal) %> by 
 	  <%= User.find_by(id: @item.creator_id).fullname %>.</p>
   </div>
   
+  <div>
+  <h3>Add a note to this item</h3>
+  
+  <% if @note.errors.any? %>
+	<p>
+    <%@note.errors.each do |attribute, message| %>
+	<%= attribute %> : <%= message %>.
+	<br />
+	<% end %>
+	</p>
+  <% end %>
+  
+  
+  <%= form_tag "/note" do %>
+  
+  <div>
+    <label>Note text:</label>
+    <textarea name="text" rows="4" cols="50">Add your note text here. User sessions don't work yet, so... all notes are added by some guy named Jason. FOR NOW.</textarea>
+  </div>
+  
+  <%= hidden_field_tag("item_id", @item.id) %>
+  
+  <input type="submit" value="Add note">
+  
+  <% end %>
   
   <h3>Item notes</h3>
 
