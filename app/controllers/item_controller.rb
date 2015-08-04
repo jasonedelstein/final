@@ -72,6 +72,7 @@ class ItemController < ApplicationController
   end
 
   def show
+	flash.keep
     @note = Note.new
     @item = Item.find_by(:id => params["id"])
   end

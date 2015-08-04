@@ -11,6 +11,7 @@ class NoteController < ApplicationController
   end
 
   def create
+	
     @note = Note.new
 	@note.text = params["text"]
 	@note.item_id = params["item_id"]
@@ -21,7 +22,7 @@ class NoteController < ApplicationController
     if @note.save
       redirect_to "/item/#{params["item_id"]}"
     else
-      render "/item/#{params["item_id"]}"
+	  redirect_to "/item/#{params["item_id"]}/?fail=1"
     end
   end
 

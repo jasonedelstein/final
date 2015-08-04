@@ -45,13 +45,8 @@
   <div>
   <h3>Add a note to this item</h3>
   
-  <% if @note.errors.any? %>
-	<p>
-    <%@note.errors.each do |attribute, message| %>
-	<%= attribute %> : <%= message %>.
-	<br />
-	<% end %>
-	</p>
+  <% if params["fail"] = 1 %>
+	<div class="notice"><p>Please add text to your note!</p></div>
   <% end %>
   
   
