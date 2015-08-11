@@ -76,8 +76,6 @@ class ItemController < ApplicationController
     @note = Note.new
     @item = Item.find_by(:id => params["id"])
   end
-  
-  private
     
   def sort_column
     Item.column_names.include?(params[:sort]) ? params[:sort] : "name"
