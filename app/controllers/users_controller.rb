@@ -1,7 +1,5 @@
 class UsersController < ApplicationController
 
-  autocomplete :user, :first_name
-
   def index
     @users = User.all
   end
