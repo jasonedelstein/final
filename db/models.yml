@@ -2,6 +2,7 @@ User
   first_name: string
   last_name: string
   created_on: datetime
+  password_digest: string
   admin: boolean
   admin_level: integer
 

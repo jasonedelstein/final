@@ -21,8 +21,8 @@ ActiveRecord::Schema.define(version: 0) do
   create_table "items", force: true do |t|
     t.text     "name"
     t.text     "barcode"
-    t.integer  "status",       limit: 255, default: 0
-    t.integer  "condition",    limit: 255, default: 0
+    t.integer  "status",       default: 0
+    t.integer  "condition",    default: 0
     t.integer  "borrow_count"
     t.integer  "borrower_id"
     t.integer  "category_id"
@@ -39,8 +39,8 @@ ActiveRecord::Schema.define(version: 0) do
   create_table "notes", force: true do |t|
     t.text     "text"
     t.integer  "item_id"
-    t.datetime "created_on"
     t.integer  "creator_id"
+    t.datetime "created_on"
   end
 
   add_index "notes", ["creator_id"], name: "index_notes_on_creator_id"
@@ -56,8 +56,9 @@ ActiveRecord::Schema.define(version: 0) do
     t.string   "first_name"
     t.string   "last_name"
     t.datetime "created_on"
-    t.boolean  "admin",       default: false
+    t.boolean  "admin",           default: false
     t.integer  "admin_level"
+    t.string   "password_digest"
   end
 
 end
