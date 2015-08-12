@@ -21,6 +21,7 @@ Item
   type_id: integer
   created_on: datetime
   creator_id: integer
+  checkouts: integer(0)
 
 Type
   name: string
