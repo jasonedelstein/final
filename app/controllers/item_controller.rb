@@ -47,7 +47,17 @@ class ItemController < ApplicationController
   end
 
   def index
-      @items = Item.order(sort_column + " " + sort_direction)
+  
+  if params["keyword"].present?
+      k = params["keyword"].strip
+      @items = Item.where("title LIKE ?", "%#{k}%")
+    else
+      @items = Item.all
+    end
+
+	@items = Item.order(sort_column + " " + sort_direction)
+    @items = @items.page(params[:page]).per(4)
+	
     end
 
     respond_to do |format|
@@ -72,7 +82,6 @@ class ItemController < ApplicationController
   end
 
   def show
-	flash.keep
     @note = Note.new
     @item = Item.find_by(:id => params["id"])
   end

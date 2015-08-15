@@ -9,6 +9,8 @@
 
 <div><p>Please click on an item's name to show details and notes about the item!</p></div>
 
+<%= paginate @items %>
+
 <table class="pretty">
   <tr>
     <th><%= sortable "name" %></th>

@@ -4,8 +4,8 @@ User.delete_all
 Type.delete_all
 Note.delete_all
 
-jason = User.create :first_name => "Jason", :last_name => "Edelstein", :created_on => DateTime.new(2015, 7, 29), :admin => true, :admin_level => 2
-thalia = User.create :first_name => "Thalia", :last_name => "Kapica", :created_on => DateTime.new(2015, 7, 29), :admin => false, :admin_level => 0
+jason = User.create :first_name => "Jason", :last_name => "Edelstein", :created_on => DateTime.new(2015, 7, 29), :admin => true, :admin_level => 2, :password => "jasone1"
+thalia = User.create :first_name => "Thalia", :last_name => "Kapica", :created_on => DateTime.new(2015, 7, 29), :admin => false, :admin_level => 0, :password => "jasone"
 
 puts "There are now #{User.count} users in the database."
 

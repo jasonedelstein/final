@@ -70,13 +70,20 @@
     <th><%= sortable "Note author" %></th>
 	<th><%= sortable "Date" %></th>
     <th><%= sortable "Note text" %></th>
+	<th><%= "Delete note?" %></th>
   </tr>
   
-	<% @item.notes.each do |n| %>
+  <% @notes = @item.notes %>
+  <% @notes = @notes.page(params[:page]).per(4) %> 
+  
+  <%= paginate @notes %>
+  
+	<% @notes.each do |n| %>
 	<tr>
 	<td><%= n.user.fullname %></td>
 	<td><%= n.created_on.to_formatted_s(:long_ordinal) %></td>
 	<td><%= n.text %></td>
+	<td><%= link_to "x", "/note/#{n.id}", :method => "delete" %></td>
 	</tr>
 	<% end %>
   </table>
