@@ -50,7 +50,7 @@ class ItemController < ApplicationController
   
   if params["keyword"].present?
       k = params["keyword"].strip
-      @items = Item.where("title LIKE ?", "%#{k}%")
+      @items = Item.where("name LIKE ?", "%#{k}%")
     else
       @items = Item.all
     end

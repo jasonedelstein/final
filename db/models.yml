@@ -5,6 +5,7 @@ User
   password_digest: string
   admin: boolean
   admin_level: integer
+  email: string
 
 Category
   name: string

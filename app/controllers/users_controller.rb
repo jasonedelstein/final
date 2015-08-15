@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   def require_login
     @user = User.find_by(id: session[:user_id])
     if @user.blank?
-      redirect_to root_url, notice: "Please login first."
+      redirect_to root_url, notice: "Please log in first."
     end
   end
 
@@ -30,14 +30,15 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new
-    @user.name = params[:name]
-    @user.email = params[:email]
+    @user.first_name = params[:first_name]
+    @user.first_name = params[:last_name]
+	@user.email = params[:email]
     @user.password = params[:password]
     @user.password_confirmation = params[:password_confirmation]
 
     if @user.save
       flash[:notice] = "Thanks for signing up!"
-      redirect_to movies_url
+      redirect_to root_url
     else
       render 'new'
     end

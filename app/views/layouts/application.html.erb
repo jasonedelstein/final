@@ -41,8 +41,14 @@
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="#">Sign Up</a></li>
-          <li><a href="#">Login</a></li>
+		<% if session[:user_id] %>
+		  <li><a>Signed in: <%= User.find(session[:user_id]).fullname %></a></li>
+        <% else %>
+          <li><a href="/users/new">Sign Up</a></li>
+          <li><a href="/sessions/new">Sign In</a></li>
+		<% end %>
+          <li><a href="/account/<%= session[:user_id] %>">My Account</a></li>
+          <li><a href="/logout">Sign Out</a></li>
         </ul>
       </div>
     </div>

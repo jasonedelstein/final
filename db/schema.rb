@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 0) do
     t.integer  "type_id"
     t.datetime "created_on"
     t.integer  "creator_id"
+    t.integer  "checkouts",    default: 0
   end
 
   add_index "items", ["borrower_id"], name: "index_items_on_borrower_id"
@@ -59,6 +60,7 @@ ActiveRecord::Schema.define(version: 0) do
     t.boolean  "admin",           default: false
     t.integer  "admin_level"
     t.string   "password_digest"
+    t.string   "email"
   end
 
 end

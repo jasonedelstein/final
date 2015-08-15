@@ -1,0 +1,23 @@
+<div class="page-header">
+  <h1>User Accounts - Admin Listing</h1>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <td>Name</td>
+      <td>Email Address</td>
+      <td>Password</td>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.password_digest %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
