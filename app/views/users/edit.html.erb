@@ -1,0 +1,26 @@
+<h1>Edit your account details</h1>
+
+<% if @user.errors.any? %>
+<p>
+    <%@user.errors.each do |attribute, message| %>
+	<%= attribute %> : <%= message %>.
+	<br />
+	<% end %>
+</p>
+<% end %>
+
+<%= form_tag "/user/#{@user.id}", :method => "patch" do %>
+
+  <div>
+    <label>First name:</label>
+    <input type="text" name="first_name" value="<%= @user.first_name %>" size="30">
+  </div>
+  
+   <div>
+    <label>Last name:</label>
+    <input type="text" name="first_name" value="<%= @user.last_name %>" size="30">
+  </div>
+
+  <input type="submit" value="Update">
+
+<% end %>
