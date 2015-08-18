@@ -17,3 +17,4 @@ gem 'quiet_assets'
 gem 'ez'
 gem 'jquery-ui-rails'
 gem 'rails4-autocomplete'
+gem 'rails_12factor', group: :production

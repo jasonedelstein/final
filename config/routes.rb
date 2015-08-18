@@ -15,12 +15,10 @@ Rails.application.routes.draw do
   
   root 'item#index'
   
-  resources :item do
-      get :autocomplete_item_barcode, :on => :collection
-  end
+  resources :item
   
-  resources :users do
-    get :autocomplete_user_email, :on => :collection
-  end
-
+  patch '/users/promote/:id' => 'users#promote'
+  
+  resources :users
+  
   end  

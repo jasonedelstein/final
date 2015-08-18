@@ -50,8 +50,7 @@ class ItemController < ApplicationController
     else
       @items = Item.all
     end
-
-	@items = Item.order(sort_column + " " + sort_direction)
+	
     @items = @items.page(params[:page]).per(4)
 	
     end

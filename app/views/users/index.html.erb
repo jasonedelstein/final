@@ -2,6 +2,8 @@
   <h1>User Accounts - Admin Listing</h1>
 </div>
 
+<%= paginate @users %>
+
 <table class="table table-striped">
   <thead>
     <tr>
@@ -9,7 +11,7 @@
       <td>Email address</td>
       <td>Created on</td>
 	  <td>Admin?</td>
-	  <td>Promote to admin?</td>
+	  <td>Toggle admin?</td>
     </tr>
   </thead>
 
@@ -20,6 +22,7 @@
         <td><%= user.email %></td>
         <td><%= user.created_on %></td>
 		<td><%= user.admin %></td>
+		<td><%= link_to "x", "/users/promote/#{user.id}", :method => "patch" %></td>
       </tr>
     <% end %>
   </tbody>

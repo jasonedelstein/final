@@ -22,8 +22,10 @@
 	<td>Condition</td>
 	<td>Times borrowed</td>
 	<td>Current borrower</td>
+	<% if session[:admin] %>
 	<td>Edit item?</td>
 	<td>Delete item?</td>
+	<% end %>
     </tr>
    </thead>
    <tbody>
@@ -42,8 +44,10 @@
 	  <% else %>
 	  <%= item.user.fullname %></td>
 	  <% end %>
+	  <% if session[:admin] %>
 	  <td><%= link_to "x", "/item/#{item.id}/edit" %></td>
 	  <td><%= link_to "x", "/item/#{item.id}", :method => "delete" %></td>
+	  <% end %>
     </tr>
   <% end %>
   </tbody>

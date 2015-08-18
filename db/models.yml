@@ -15,13 +15,13 @@ Item
   barcode: text
   status: integer(0)
   condition: integer(0)
-  borrow_count: integer
+  borrow_count: integer(0)
   borrower_id: integer
   category_id: integer
   type_id: integer
   created_on: datetime
   creator_id: integer
-  checkouts: integer(0)
+  due_time: datetime
 
 Type
   name: string

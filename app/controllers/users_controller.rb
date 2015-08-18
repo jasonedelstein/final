@@ -2,6 +2,7 @@ class UsersController < ApplicationController
 
   before_action :require_login, except: [:new, :create]
   before_action :authorize_user, only: [:show, :edit, :update]
+  before_action :require_admin, only: [:index]
 
   autocomplete :user, :email
   
@@ -17,9 +18,16 @@ class UsersController < ApplicationController
       redirect_to root_url, notice: "Nice try!"
     end
   end
+  
+  def require_admin
+	if !session[:admin]
+		redirect_to root_url, notice: "Sorry, only admins may do that."
+	end
+  end
 
   def index
     @users = User.all
+	@users = @users.page(params[:page]).per(10)
   end
 
   def show
@@ -67,6 +75,22 @@ class UsersController < ApplicationController
       @user.errors.add(:password, "does not match")
       render 'edit'
     end
+  end
+  
+  def promote
+    @user = User.find_by(:id => params["id"])
+	
+	if !@user.admin
+		@user.admin = true
+		@user.save
+		flash[:notice] = "Account #{@user.fullname} promoted to admin successfully."
+		redirect_to '/users/'
+	else
+		@user.admin = false
+		@user.save
+		flash[:notice] = "Account #{@user.fullname} demoted from admin successfully."
+		redirect_to '/users/'
+	end
   end
 
 end

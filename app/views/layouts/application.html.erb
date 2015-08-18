@@ -29,7 +29,9 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
           <li><a href="/item">Items</a></li>
-          <li><a href="/users">Users</a></li>
+		  <% if session[:admin] %>
+		  <li><a href="/users">Users</a></li>
+		  <% end %>
           <li><a href="/checkout">Item checkout</a></li>
 
           <form action="/items" class="navbar-form navbar-left" role="search">
