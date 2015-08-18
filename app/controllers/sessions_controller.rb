@@ -15,6 +15,7 @@ class SessionsController < ApplicationController
     if user
       if user.authenticate(params["password"])
         session[:user_id] = user.id
+		session[:admin] = user.admin
         flash[:notice] = "Welcome back, #{user.fullname}!"
         redirect_to root_url
       else

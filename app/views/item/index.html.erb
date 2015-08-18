@@ -11,19 +11,22 @@
 
 <%= paginate @items %>
 
-<table class="pretty">
-  <tr>
-    <th><%= sortable "name" %></th>
-    <th><%= sortable "barcode" %></th>
-	<th><%= sortable "category_id", "Category" %></th>
-	<th><%= sortable "type_id", "Type" %></th>
-    <th><%= sortable "status" %></th>
-	<th><%= sortable "condition" %></th>
-	<th><%= sortable "borrow_count", "Times borrowed" %></th>
-	<th><%= sortable "borrower_id" %></th>
-	<th>Edit item?</th>
-	<th>Delete item?</th>
-  </tr>
+<table class="table table-striped">
+  <thead>
+   <tr>
+    <td>Name</td>
+    <td>Barcode</td>
+	<td>Category</td>
+	<td>Type</td>
+    <td>Status</td>
+	<td>Condition</td>
+	<td>Times borrowed</td>
+	<td>Current borrower</td>
+	<td>Edit item?</td>
+	<td>Delete item?</td>
+    </tr>
+   </thead>
+   <tbody>
   <% for item in @items %>
     <tr>
       <td><%= link_to item.name, "/item/#{item.id}" %></td>
@@ -43,4 +46,5 @@
 	  <td><%= link_to "x", "/item/#{item.id}", :method => "delete" %></td>
     </tr>
   <% end %>
+  </tbody>
 </table>

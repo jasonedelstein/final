@@ -3,6 +3,8 @@ class UsersController < ApplicationController
   before_action :require_login, except: [:new, :create]
   before_action :authorize_user, only: [:show, :edit, :update]
 
+  autocomplete :user, :email
+  
   def require_login
     @user = User.find_by(id: session[:user_id])
     if @user.blank?
@@ -49,12 +51,13 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user.name = params[:name]
-    @user.email = params[:email]
-    @user.password = params[:password]
+    @user.first_name = params[:first_name]
+	@user.last_name = params[:last_name]
+    
+	if !params[:password].nil? && params[:password] == params[:password_confirmation]
+		@user.password = params[:password]
 
-    if @user.password.present? && @user.password == params[:password_confirmation]
-      if @user.save
+    if @user.save
         flash[:notice] = "Account updated successfully."
         redirect_to user_url(@user.id)
       else
@@ -64,14 +67,6 @@ class UsersController < ApplicationController
       @user.errors.add(:password, "does not match")
       render 'edit'
     end
-  end
-  
-  def sort_column
-    Item.column_names.include?(params[:sort]) ? params[:sort] : "name"
-  end
-  
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 
 end

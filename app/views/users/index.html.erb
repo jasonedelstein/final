@@ -6,17 +6,20 @@
   <thead>
     <tr>
       <td>Name</td>
-      <td>Email Address</td>
-      <td>Password</td>
+      <td>Email address</td>
+      <td>Created on</td>
+	  <td>Admin?</td>
+	  <td>Promote to admin?</td>
     </tr>
   </thead>
 
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= user.name %></td>
+        <td><%= user.fullname %></td>
         <td><%= user.email %></td>
-        <td><%= user.password_digest %></td>
+        <td><%= user.created_on %></td>
+		<td><%= user.admin %></td>
       </tr>
     <% end %>
   </tbody>

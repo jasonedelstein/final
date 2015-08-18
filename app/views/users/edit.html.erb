@@ -9,7 +9,7 @@
 </p>
 <% end %>
 
-<%= form_tag "/user/#{@user.id}", :method => "patch" do %>
+<%= form_tag "/users/#{@user.id}", :method => "patch" do %>
 
   <div>
     <label>First name:</label>
@@ -18,7 +18,17 @@
   
    <div>
     <label>Last name:</label>
-    <input type="text" name="first_name" value="<%= @user.last_name %>" size="30">
+    <input type="text" name="last_name" value="<%= @user.last_name %>" size="30">
+  </div>
+  
+  <div>
+    <label>New password:</label>
+    <input type="password" name="password" size="30">
+  </div>
+  
+   <div>
+    <label>New password confirmation:</label>
+    <input type="password" name="password_confirmation" size="30">
   </div>
 
   <input type="submit" value="Update">

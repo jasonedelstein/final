@@ -58,7 +58,6 @@ ActiveRecord::Schema.define(version: 0) do
     t.string   "last_name"
     t.datetime "created_on"
     t.boolean  "admin",           default: false
-    t.integer  "admin_level"
     t.string   "password_digest"
     t.string   "email"
   end

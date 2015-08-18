@@ -1,13 +1,41 @@
-<h1>Check items in or out</h1>
+<h1>Item Transactions</h1>
 
-<div><p>On this page, you can check in our check out an item.</a></p></div>
+<% if @item.errors.any? %>
+<p>
+    <%@item.errors.each do |attribute, message| %>
+	<%= attribute %> : <%= message %>.
+	<br />
+	<% end %>
+</p>
+<% end %>
 
-<%= form_tag "/checkout" %>
+<h2>Check out an item</h2>
+
+<%= form_tag "/checkout" do %>
 
   <div>
-    <label>Name to check out to:</label>
-	
+    <label>Email:</label>
+    <input type="text" name="email" size="30">
+  </div>
+  
+   <div>
+    <label>Item barcode:</label>
+    <input type="text" name="barcode" size="30">
   </div>
 
+  <input type="submit" value="Process check-out">
+  
+<% end %>
 
-  <input type="submit" value="Update">
+<h2>Check in an item</h2>
+
+<%= form_tag "/checkout", :method => "delete"  do %>
+  
+   <div>
+    <label>Item barcode:</label>
+    <input type="text" name="barcode" size="30">
+  </div>
+
+  <input type="submit" value="Process check-in">
+  
+<% end %>

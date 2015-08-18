@@ -13,39 +13,3 @@
  *= require_tree .
  *= require_self
  */
-
-p {
-  font-size: 18px;
-}
-
-nav h1 {
-  background: #009;
-  color: white;
-  padding: 12px;
-}
-
-nav a, nav a:visited {
- text-decoration: none;
- color: purple;
-}
-
-h2 {
- color: black;
-}
-
-.rating {
- color: gray;
- border: solid 1px gray;
- padding: 4px;
-}
-
-img {
- float: left;
- margin-right: 40px;
- box-shadow: 8px 8px 4px gray;
- width: "300px";
-}
-p {
- margin-top: 24px;
- margin-bottom: 24px;
-}
