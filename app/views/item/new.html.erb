@@ -25,7 +25,8 @@
   </div>
   
   <div>
-      <select name="category_id">
+      <label>Category:</label>
+	  <select name="category_id">
     <% Category.all.each do |c| %>
       <option value="<%= c.id %>"><%= c.name %></option>
     <% end %>
@@ -33,6 +34,7 @@
   </div>
   
   <div>
+	<label>Type:</label>
       <select name="type_id">
     <% Type.all.each do |t| %>
       <option value="<%= t.id %>"><%= t.name %></option>
@@ -40,6 +42,6 @@
   </select>
   </div>
   
-  <input type="submit" value="Submit">
+  <input type="submit" value="Create item">
 
 <% end %>

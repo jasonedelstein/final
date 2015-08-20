@@ -34,7 +34,7 @@
 		  <% end %>
           <li><a href="/checkout">Item checkout</a></li>
 
-          <form action="/items" class="navbar-form navbar-left" role="search">
+          <form action="/<%= @search_target %>" class="navbar-form navbar-left" role="search">
             <div class="form-group">
               <input value="<%= params[:keyword] %>" name="keyword" type="text" class="form-control" placeholder="Search">
             </div>
@@ -58,7 +58,7 @@
 
   <div class="container">
 
-    <%= notice %>
+    <p class="bg-warning"><%= notice %></p>
 
     <%= yield %>
 

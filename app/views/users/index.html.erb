@@ -18,11 +18,11 @@
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= user.fullname %></td>
+        <td><%= link_to "#{user.fullname}", "/users/#{user.id}" %></td>
         <td><%= user.email %></td>
-        <td><%= user.created_on %></td>
+        <td><%= user.created_on.to_formatted_s(:long_ordinal) %></td>
 		<td><%= user.admin %></td>
-		<td><%= link_to "x", "/users/promote/#{user.id}", :method => "patch" %></td>
+		<td><%= link_to "x", "/users/promote/#{user.id}", :method => "patch", data: {confirm: 'Are you sure?'} %></td>
       </tr>
     <% end %>
   </tbody>

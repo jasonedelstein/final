@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   resources :item
   
   patch '/users/promote/:id' => 'users#promote'
+  post '/users/pay_fines' => 'users#pay_fines'
   
   resources :users
   

@@ -3,8 +3,13 @@ class UsersController < ApplicationController
   before_action :require_login, except: [:new, :create]
   before_action :authorize_user, only: [:show, :edit, :update]
   before_action :require_admin, only: [:index]
+  before_action :set_search
 
   autocomplete :user, :email
+  
+  def set_search
+	@search_target = "users"
+  end
   
   def require_login
     @user = User.find_by(id: session[:user_id])
@@ -14,7 +19,7 @@ class UsersController < ApplicationController
   end
 
   def authorize_user
-    if @user.id != params[:id].to_i
+    if @user.id != params[:id].to_i && session[:admin].to_s != "true"
       redirect_to root_url, notice: "Nice try!"
     end
   end
@@ -26,8 +31,15 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.all
-	@users = @users.page(params[:page]).per(10)
+  
+    if params["keyword"].present?
+      k = params["keyword"].strip
+	  @users = User.where("(first_name LIKE :search) or (last_name LIKE :search) or (first_name || ' ' || last_name LIKE :search)", :search => "%#{k}%")
+	else
+      @users = User.all
+    end
+	
+	@users = @users.page(params[:page]).per(10).order(:last_name)
   end
 
   def show
@@ -91,6 +103,16 @@ class UsersController < ApplicationController
 		flash[:notice] = "Account #{@user.fullname} demoted from admin successfully."
 		redirect_to '/users/'
 	end
+  end
+  
+  def pay_fines
+	 @fines = Fine.find(params[:fine_ids])
+	 @fines.each do |fine|
+		fine.paid = true
+		fine.paid_on = Time.now
+		fine.save
+	 end
+	 redirect_to user_url(params[:user_id])
   end
 
 end

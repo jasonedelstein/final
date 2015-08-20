@@ -12,24 +12,114 @@
   <strong>Email address on file:</strong> <%= @user.email %>
 </p>
 
+<p>
+  <strong>Fines owed:</strong> <%= number_to_currency(@user.fine_total) %> 
+</p>
+
 <div>
 
-<p>Items you have currently borrowed:</p>
-
 <% @items = @user.items %>
-<% @items = @items.page(params[:page]).per(4) %>
+<% if @items.empty? %>
+<p>You do not have any borrowed items.</p>
+<% else %>
+
+<p>Items currently borrowed:</p>
+
+<% @items = @items.page(params[:page]).per(10).order(:barcode) %>
 
 <%= paginate @items %>
 
-<table class="pretty">
-  <tr>
-    <th><%= sortable "name" %></th>
-    <th><%= sortable "barcode" %></th>
-  </tr>
+<table class="table table-striped">
+  <thead>
+    <td>Name</td>
+    <td>Barcode</td>
+	<td>Due time</td>
+  </thead>
+  <tbody>
   <% for item in @items %>
     <tr>
       <td><%= link_to item.name, "/item/#{item.id}" %></td>
       <td><%= item.barcode %></td>
+	  <td><%= item.due_time.to_formatted_s(:long_ordinal) %></td>
     </tr>
   <% end %>
+  </tbody>
 </table>
+<% end %>
+
+<p>Unpaid fines:</p>
+
+<% @fines = @user.fines.where(paid: false) %>
+<% if @fines.empty? %>
+<p>There are no unpaid fines!</p>
+<% else %> 
+
+<% @fines = @fines.page(params[:page]).per(5).order(:created_on) %>
+<%= paginate @fines %>
+
+<%= form_tag "/users/pay_fines" do %>
+
+<table class="table table-striped">
+  <thead>
+    <td>Item</td>
+    <td>Amount</td>
+	<td>Fine date</td>
+	<% if session[:admin] %>
+	<td>Pay fine?</td>
+	<% end %>
+  </thead>
+  <tbody>
+  
+  <% @fines.each do |fine| %>
+    <tr>
+      <td><%= fine.item.name %></td>
+      <td><%= number_to_currency(fine.amount) %></td>
+	  <td><%= fine.created_on.to_formatted_s(:long_ordinal) %></td>
+	  <% if session[:admin] %>
+	  <td><%= check_box_tag "fine_ids[]", fine.id %></td>
+      <% end %>
+	</tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= hidden_field_tag 'user_id', @user.id %>
+<% if session[:admin] %>
+<%= submit_tag "Pay checked fines", data: {confirm: 'Verify that all fines are paid in full! Mark checked fines paid?'} %>
+<% end %>
+<% end %>
+<% end %>
+<br />
+
+<p>Paid fines</p>
+
+<% @fines = @user.fines.where(paid: true) %>
+<% @fines = @fines.page(params[:page]).per(5).order(:created_on) %>
+
+<% if @fines.empty? %>
+<p>There are no paid fines.</p>
+<% else %>
+
+<%= paginate @fines %>
+
+<table class="table table-striped">
+  <thead>
+    <td>Item</td>
+    <td>Amount</td>
+	<td>Fine date</td>
+	<td>Fine paid on</td>
+	<td>Fine marked paid by</td>
+  </thead>
+  <tbody>
+  <% @fines.each do |fine| %>
+    <tr>
+      <td><%= fine.item.name %></td>
+      <td><%= number_to_currency(fine.amount) %></td>
+	  <td><%= fine.created_on.to_formatted_s(:long_ordinal) %></td>
+	  <td><%= fine.paid_on.to_formatted_s(:long_ordinal) %></td>
+	  <td><%= User.find_by_id(session[:user_id]).fullname %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+<% end %>

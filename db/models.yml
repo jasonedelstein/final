@@ -34,6 +34,14 @@ Note
   creator_id: integer
   created_on: datetime
 
+Fine
+  created_on: datetime
+  amount: float
+  item_id: integer
+  paid: boolean
+  user_id: integer
+  paid_on: datetime
+  
 # Example table for a typical Book model.
 #
 # Book

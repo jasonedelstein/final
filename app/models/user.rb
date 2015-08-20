@@ -4,11 +4,24 @@ class User < ActiveRecord::Base
 
   has_many :items, :foreign_key => :borrower_id
   has_many :notes
+  has_many :fines
   
   validates :email, presence: true, uniqueness: true
   
   def fullname
 	self.first_name + " " + self.last_name
   end
-
+  
+  def fine_total
+  
+	total = 0.0
+	
+	if !self.fines.empty?
+	  self.fines.each do |fine|
+	  total = total + fine.amount
+      end
+	end
+	
+	return total
+  end
 end

@@ -24,8 +24,8 @@ puts "There are now #{Type.count} types in the database."
 ms2 = Item.create :name => "MagSafe2 Power Adapter", :barcode => "096037900", :borrow_count => 4, :category_id => adaptercat.id, :type_id => adaptertype.id, :borrower_id => nil, :created_on => DateTime.new(2015, 8, 2), :creator_id => jason.id
 ms1 = Item.create :name => "MagSafe1 Power Adapter", :barcode => "096037911", :borrow_count => 3, :category_id => adaptercat.id, :type_id => adaptertype.id, :borrower_id => nil, :created_on => DateTime.new(2015, 8, 2), :creator_id => jason.id
 dell = Item.create :name => "Dell XPS laptop", :barcode => "107000319", :borrow_count => 0, :category_id => laptopcat.id, :type_id => laptoptype.id, :borrower_id => nil, :created_on => DateTime.new(2015, 8, 2), :creator_id => jason.id
-mac = Item.create :name => "MacBook Air 13", :barcode => "106050367", :borrow_count => 10, :category_id => laptopcat.id, :type_id => laptoptype.id, :borrower_id => thalia.id, :status => 1, :created_on => DateTime.new(2015, 8, 2), :creator_id => jason.id
-ipad = Item.create :name => "iPad Air", :barcode => "095082401",  :borrow_count => 1, :category_id => ipadcat.id, :type_id => ipadtype.id, :borrower_id => jason.id, :status => 1, :created_on => DateTime.new(2015, 8, 2), :creator_id => jason.id
+mac = Item.create :name => "MacBook Air 13", :barcode => "106050367", :borrow_count => 10, :category_id => laptopcat.id, :type_id => laptoptype.id, :borrower_id => thalia.id, :status => 1, :created_on => DateTime.new(2015, 8, 2), :creator_id => jason.id, :due_time => DateTime.new(2015, 8, 4)
+ipad = Item.create :name => "iPad Air", :barcode => "095082401",  :borrow_count => 1, :category_id => ipadcat.id, :type_id => ipadtype.id, :borrower_id => jason.id, :status => 1, :created_on => DateTime.new(2015, 8, 2), :creator_id => jason.id, :due_time => DateTime.new(2016, 8, 4)
 
 puts "There are now #{Item.count} items in the database."
 

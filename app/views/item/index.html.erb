@@ -46,7 +46,7 @@
 	  <% end %>
 	  <% if session[:admin] %>
 	  <td><%= link_to "x", "/item/#{item.id}/edit" %></td>
-	  <td><%= link_to "x", "/item/#{item.id}", :method => "delete" %></td>
+	  <td><%= link_to "x", "/item/#{item.id}", :method => "delete", data: {confirm: 'Are you sure?'} %></td>
 	  <% end %>
     </tr>
   <% end %>

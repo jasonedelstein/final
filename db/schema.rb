@@ -21,6 +21,18 @@ ActiveRecord::Schema.define(version: 0) do
     t.integer "replacement_cost"
   end
 
+  create_table "fines", force: true do |t|
+    t.datetime "created_on"
+    t.float    "amount"
+    t.integer  "item_id"
+    t.boolean  "paid",       default: false
+    t.integer  "user_id"
+    t.datetime "paid_on"
+  end
+
+  add_index "fines", ["item_id"], name: "index_fines_on_item_id", using: :btree
+  add_index "fines", ["user_id"], name: "index_fines_on_user_id", using: :btree
+
   create_table "items", force: true do |t|
     t.text     "name"
     t.text     "barcode"

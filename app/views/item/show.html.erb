@@ -26,11 +26,11 @@
   </div>
   
   <div>
-    <p>Current borrower: 
+    <p>Current borrower and due time: 
 	<% if @item.borrower_id.nil? %>
 	  none.
 	  <% else %>
-	  <%= @item.user.fullname %>.</td>
+	  <%= @item.user.fullname %> due on <%= @item.due_time.to_formatted_s(:long_ordinal) %>.</td>
 	  <% end %>
 	  </p>
   </div>
@@ -54,6 +54,7 @@
   
   <div>
     <label>Note text:</label>
+	<br />
     <textarea name="text" rows="4" cols="50">Add your note text here.</textarea>
   </div>
   
@@ -65,27 +66,32 @@
   
   <h3>Item notes</h3>
 
-  <table class="pretty">
-  <tr>
-    <th><%= sortable "Note author" %></th>
-	<th><%= sortable "Date" %></th>
-    <th><%= sortable "Note text" %></th>
-	<th><%= "Delete note?" %></th>
-  </tr>
+  <table class="table table-striped">
+  <thead>
+    <td>Note author</td>
+	<td>Date</td>
+    <td>Note text</td>
+	<% if session[:admin] %>
+	<td><%= "Delete note?" %></td>
+	<% end %>
+  </thead>
   
   <% @notes = @item.notes %>
   <% @notes = @notes.page(params[:page]).per(4) %> 
   
   <%= paginate @notes %>
-  
+  <tbody>
 	<% @notes.each do |n| %>
 	<tr>
 	<td><%= n.user.fullname %></td>
 	<td><%= n.created_on.to_formatted_s(:long_ordinal) %></td>
 	<td><%= n.text %></td>
-	<td><%= link_to "x", "/note/#{n.id}", :method => "delete" %></td>
+	<% if session[:admin] %>
+	<td><%= link_to "x", "/note/#{n.id}", :method => "delete", data: {confirm: 'Are you sure?'} %></td>
+	<% end %>
 	</tr>
 	<% end %>
+	</tbody>
   </table>
 	
 </div>

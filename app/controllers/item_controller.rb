@@ -1,7 +1,13 @@
 class ItemController < ApplicationController
 
+  before_action :set_search
+
   autocomplete :item, :barcode
 
+  def set_search
+	 @search_target = "item"
+  end
+  
   def update
     @item = Item.find_by(:id => params["id"])
 	@item.name = params["name"]
@@ -43,7 +49,6 @@ class ItemController < ApplicationController
   end
 
   def index
-  
   if params["keyword"].present?
       k = params["keyword"].strip
       @items = Item.where("name LIKE ?", "%#{k}%")
@@ -51,7 +56,7 @@ class ItemController < ApplicationController
       @items = Item.all
     end
 	
-    @items = @items.page(params[:page]).per(4)
+    @items = @items.page(params[:page]).per(4).order(:barcode)
 	
     end
 
