@@ -36,12 +36,13 @@ class ItemController < ApplicationController
 	@item.category_id = params["category_id"]
 	@item.type_id = params["type_id"]
 	@item.status = "available"
-	@item.condition = "new"
+	@item.condition = "good"
 	@item.borrower_id = nil
 	@item.borrow_count = 0
 	@item.save
     
     if @item.save
+	  flash[:notice] = "An item titled: #{@item.name} with barcode: #{@item.barcode} has been created successfully."
       redirect_to root_url
     else
       render 'new'

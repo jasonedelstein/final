@@ -5,37 +5,37 @@
 <% if @user.errors.any? %>
   <ul class="list-unstyled text-danger">
     <% @user.errors.full_messages.each do |msg| %>
-      <li><strong><%= msg %></strong></li>
+      <li><strong><%= msg %></strong>.</li>
     <% end %>
   </ul>
 <% end %>
 
 <%= form_tag users_path do %>
 
-  <p>
+  <div>
     <%= label_tag :first_name %>
     <%= text_field_tag :first_name %>
-  </p>
+  </div>
   
-    <p>
+    <div>
     <%= label_tag :last_name %>
     <%= text_field_tag :last_name %>
-   </p>
+   </div>
 
-  <p>
+  <div>
     <%= label_tag :email %>
     <%= text_field_tag :email %>
-  </p>
+  </div>
 
-  <p>
+  <div>
     <%= label_tag :password %>
     <%= password_field_tag :password %>
-  </p>
+  </div>
 
-  <p>
+  <div>
     <%= label_tag :password_confirmation, "Password confirmation" %>
-    <%= text_field_tag :password_confirmation %>
-  </p>
+    <%= password_field_tag :password_confirmation %>
+  </div>
 
   <%= submit_tag "Create user" %>
 

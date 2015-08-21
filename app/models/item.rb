@@ -1,7 +1,7 @@
 class Item < ActiveRecord::Base
 
   enum status: [ :available, :borrowed, :retired ]
-  enum condition: [ :good, :damaged, :acceptable ]
+  enum condition: [:good, :damaged, :acceptable ]
 
   has_many :notes
   belongs_to :category
