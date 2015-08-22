@@ -16,6 +16,13 @@ ActiveRecord::Schema.define(version: 0) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "accessories", force: true do |t|
+    t.string  "name"
+    t.integer "item_id"
+  end
+
+  add_index "accessories", ["item_id"], name: "index_accessories_on_item_id", using: :btree
+
   create_table "categories", force: true do |t|
     t.string  "name"
     t.integer "replacement_cost"
@@ -45,8 +52,10 @@ ActiveRecord::Schema.define(version: 0) do
     t.datetime "created_on"
     t.integer  "creator_id"
     t.datetime "due_time"
+    t.integer  "accessory_id"
   end
 
+  add_index "items", ["accessory_id"], name: "index_items_on_accessory_id", using: :btree
   add_index "items", ["borrower_id"], name: "index_items_on_borrower_id", using: :btree
   add_index "items", ["category_id"], name: "index_items_on_category_id", using: :btree
   add_index "items", ["creator_id"], name: "index_items_on_creator_id", using: :btree

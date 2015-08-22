@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Final Project - Item Management System</title>
+  <title>Final Project - Item Circulation Environment</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js' %>
@@ -22,7 +22,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/">Item Management System</a>
+        <a class="navbar-brand" href="/">ICE</a>
       </div>
 
       <!-- Collect the nav links, forms, and other content for toggling -->
@@ -32,7 +32,7 @@
 		  <% if session[:admin] %>
 		  <li><a href="/users">Users</a></li>
 		  <% end %>
-          <li><a href="/checkout">Item checkout</a></li>
+          <li><a href="/checkout">Item circulation</a></li>
 
           <form action="/<%= @search_target %>" class="navbar-form navbar-left" role="search">
             <div class="form-group">
@@ -44,7 +44,7 @@
 
         <ul class="nav navbar-nav navbar-right">
 		<% if session[:user_id] %>
-		  <li><a>Signed in: <%= User.find(session[:user_id]).fullname %></a></li>
+		  <li><a>Signed in: <%= User.find_by_id(session[:user_id]).fullname %></a></li>
 		  <li><a href="/account/<%= session[:user_id] %>">My Account</a></li>
           <li><a href="/logout">Sign Out</a></li>
         <% else %>

@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   has_many :fines
   
   validates :email, presence: true, uniqueness: true
+  validates :first_name, :last_name, presence: true
   
   def fullname
 	self.first_name + " " + self.last_name

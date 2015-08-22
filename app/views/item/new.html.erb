@@ -42,6 +42,29 @@
   </select>
   </div>
   
+  <div>
+	<label>Accessory:</label>
+      <select name="accessory_id">
+    <% Accessory.all.each do |a| %>
+      <option value="<%= a.id %>"><%= a.name %></option>
+    <% end %>
+	  <option value="">None</option> 
+  </select>
+  </div>
+  
   <input type="submit" value="Create item">
 
 <% end %>
+
+<h2>Create a new accessory</h2>
+
+<%= form_tag "/accessory" do %>
+
+  <div>
+    <%= label_tag :name %>
+    <%= text_field_tag :name %>
+  </div>
+  
+  <%= submit_tag "Create accessory" %>
+
+<% end%>

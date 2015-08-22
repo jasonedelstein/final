@@ -20,7 +20,7 @@ class UsersController < ApplicationController
 
   def authorize_user
     if @user.id != params[:id].to_i && session[:admin].to_s != "true"
-      redirect_to root_url, notice: "Nice try!"
+      redirect_to root_url, notice: "Not permitted."
     end
   end
   

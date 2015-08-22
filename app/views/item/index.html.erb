@@ -19,7 +19,9 @@
 
 <%= paginate @items %>
 
+<% if session[:admin] %>
 <%= link_to "Add a new item", new_item_path, class: 'btn btn-md btn-primary pull-right' %>
+<% end %>
 
 <table class="table table-striped">
   <thead>

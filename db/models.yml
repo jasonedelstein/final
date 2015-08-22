@@ -22,6 +22,7 @@ Item
   created_on: datetime
   creator_id: integer
   due_time: datetime
+  accessory_id: integer
 
 Type
   name: string
@@ -41,6 +42,10 @@ Fine
   paid: boolean
   user_id: integer
   paid_on: datetime
+  
+Accessory
+  name: string
+  item_id: integer
   
 # Example table for a typical Book model.
 #

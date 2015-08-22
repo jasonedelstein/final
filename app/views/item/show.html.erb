@@ -2,27 +2,33 @@
   <h2><%= @item.name %></h2>
 
   <div>
-    <p>Barcode: <%= @item.barcode %>.</p>
+    <%= label_tag :barcode %>: 
+	<%= @item.barcode %>.
   </div>
 
   <div>
-    <p>Status: <%= @item.status %>.</p>
+    <%= label_tag :status %>: 
+	<%= @item.status %>.
   </div>
   
   <div>
-    <p>Condition: <%= @item.condition %>.</p>
+    <%= label_tag :condition %>: 
+    <%= @item.condition %>.
   </div>
   
   <div>
-	<p>Type: <%= @item.type.name %>.</p>
+    <%= label_tag :type_name %>: 
+	<%= @item.type.name %>.
   </div>
   
   <div>
-	<p>Borrow count: <%= @item.borrow_count %>.</p>
+	<%= label_tag :category %>: 
+	<%= @item.borrow_count %>.
   </div>
   
   <div>
-	<p>Category: <%= @item.category.name %>.</p>
+	<%= label_tag :category %>: 
+	<%= @item.category.name %>.
   </div>
   
   <div>
@@ -35,14 +41,12 @@
 	  </p>
   </div>
   
-  <!-- there must be a better way to do the borrower find. Need to fix for next version... -->
-  
   <div>
     <p>Item created on: <%= @item.created_on.to_formatted_s(:long_ordinal) %> by 
-	  <%= User.find_by(id: @item.creator_id).fullname %>.</p>
+	  <%= User.find_by_id(@item.creator_id).fullname %>.</p>
   </div>
   
-  <div>
+  <% if session[:admin] %>
   <h3>Add a note to this item</h3>
   
   <% if params["fail"] == "1" %>
@@ -63,9 +67,17 @@
   <input type="submit" value="Add note">
   
   <% end %>
+  <% end %>
   
   <h3>Item notes</h3>
 
+  <% @notes = @item.notes %>
+  <% if @notes.empty? %>
+  <div>There are no notes for this item.</div>
+  <% else %>
+  
+  <% @notes = @notes.page(params[:page]).per(4) %> 
+  
   <table class="table table-striped">
   <thead>
     <td>Note author</td>
@@ -75,9 +87,6 @@
 	<td><%= "Delete note?" %></td>
 	<% end %>
   </thead>
-  
-  <% @notes = @item.notes %>
-  <% @notes = @notes.page(params[:page]).per(4) %> 
   
   <%= paginate @notes %>
   <tbody>
@@ -93,5 +102,4 @@
 	<% end %>
 	</tbody>
   </table>
-	
-</div>
+ <% end %>

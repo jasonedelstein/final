@@ -17,6 +17,11 @@ class ItemController < ApplicationController
 	@item.condition = params["condition"]
 	@item.borrow_count = 0
 	@item.status = params["status"]
+	
+	if params[:accessory_id]
+		@item.accessory_id = params[:accessory_id]
+	end
+	
 	@item.save
     redirect_to root_url
   end
@@ -39,6 +44,7 @@ class ItemController < ApplicationController
 	@item.condition = "good"
 	@item.borrower_id = nil
 	@item.borrow_count = 0
+	@item.creator_id = session[:user_id]
 	@item.save
     
     if @item.save
