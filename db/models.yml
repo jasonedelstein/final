@@ -22,8 +22,7 @@ Item
   created_on: datetime
   creator_id: integer
   due_time: datetime
-  accessory_id: integer
-
+  
 Type
   name: string
   borrow_duration: integer
@@ -46,6 +45,10 @@ Fine
 Accessory
   name: string
   item_id: integer
+  
+Kit
+  item_id: integer
+  accessory_id: integer
   
 # Example table for a typical Book model.
 #
@@ -83,4 +86,3 @@ Accessory
 # Complete details are in the README file online.
 #
 # Have fun!
-

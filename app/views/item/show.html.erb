@@ -1,6 +1,7 @@
 <div>
-  <h2><%= @item.name %></h2>
-
+  <h2><%= @item.name %>  <%= link_to "Edit this item", edit_item_path(@item.id), class: 'btn btn-md btn-primary left' %></h2>
+  <div></div>
+  
   <div>
     <%= label_tag :barcode %>: 
 	<%= @item.barcode %>.
@@ -32,17 +33,30 @@
   </div>
   
   <div>
-    <p>Current borrower and due time: 
+	<label>Accessories for this item</label>:
+	<% @kits = Kit.where(:item_id => @item.id).all %>
+	<% if @kits.nil? %>
+	This item has no accessories.
+	<% else %>
+	<ul>
+	<% @kits.each do |k| %>
+	<li><%= Accessory.find_by_id(k.accessory_id).name.downcase %></li> 
+	<% end %>
+	</ul>
+	<% end %>
+  </div>
+  
+  <div>
+    <label>Current borrower and due time</label>: 
 	<% if @item.borrower_id.nil? %>
 	  none.
 	  <% else %>
 	  <%= @item.user.fullname %> due on <%= @item.due_time.to_formatted_s(:long_ordinal) %>.</td>
 	  <% end %>
-	  </p>
   </div>
   
   <div>
-    <p>Item created on: <%= @item.created_on.to_formatted_s(:long_ordinal) %> by 
+    <label>Item created on</label>: <%= @item.created_on.to_formatted_s(:long_ordinal) %> by 
 	  <%= User.find_by_id(@item.creator_id).fullname %>.</p>
   </div>
   

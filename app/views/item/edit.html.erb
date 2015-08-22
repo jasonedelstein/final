@@ -39,7 +39,11 @@
 	<label>Category:</label>
       <select name="category_id">
     <% Category.all.each do |c| %>
-      <option value="<%= c.id %>"> <%= c.name %></option>
+		<% if @item.category.id == c.id %>
+			<option selected value="<%= c.id %>"> <%= c.name %></option>
+		<% else %>
+			<option value="<%= c.id %>"> <%= c.name %></option>
+		<% end %>
     <% end %>
   </select>
   </div>
@@ -48,7 +52,11 @@
 	<label>Type:</label>
       <select name="type_id">
     <% Type.all.each do |t| %>
-      <option value="<%= t.id %>"> <%= t.name %></option>
+		<% if @item.type.id == t.id %>
+			<option selected value="<%= t.id %>"> <%= t.name %></option>
+		<% else %>
+			<option value="<%= t.id %>"> <%= t.name %></option>
+		<% end %>
     <% end %>
   </select>
   </div>
@@ -64,6 +72,23 @@
 		<% end %>
     <% end %>
 	</select>
+  </div>
+  
+    <div>
+	<label>Accessories:</label>
+    
+	<!-- a bad habit, but I can't think of how else to do this cute thing I'm trying to do -->
+	<% @accessories = Accessory.all %>
+	<ul>
+	<% @accessories.each do |a| %>
+	<% if Kit.where(:item_id => @item.id, :accessory_id => a.id).exists? %>
+		<li><%= check_box_tag "accessory_ids[]", a.id, :checked => true %>   	<%= label_tag a.name %></li>
+	<% else %>
+		<li><%= check_box_tag "accessory_ids[]", a.id, nil %>   <%= label_tag a.name %></li>
+	<% end %>
+    <% end %>
+	</ul>
+  </select>
   </div>
 
   <input type="submit" value="Update">

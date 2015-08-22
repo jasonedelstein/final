@@ -15,11 +15,19 @@ class ItemController < ApplicationController
 	@item.category_id = params["category_id"]
 	@item.type_id = params["type_id"]
 	@item.condition = params["condition"]
-	@item.borrow_count = 0
 	@item.status = params["status"]
 	
-	if params[:accessory_id]
-		@item.accessory_id = params[:accessory_id]
+	Kit.delete_all(:item_id => @item.id)
+	
+	if params[:accessory_ids]
+		@accessories = Accessory.find(params[:accessory_ids])
+		
+		@accessories.each do |a|
+			@kit = Kit.new
+			@kit.item_id = @item.id
+			@kit.accessory_id = a.id
+			@kit.save
+		end
 	end
 	
 	@item.save
@@ -46,8 +54,16 @@ class ItemController < ApplicationController
 	@item.borrow_count = 0
 	@item.creator_id = session[:user_id]
 	@item.save
-    
+	
     if @item.save
+			
+	if params[:accessory_id]
+		@kit = Kit.new
+		@kit.item_id = @item.id
+		@kit.accessory_id = params[:accessory_id]
+		@kit.save
+	end
+	
 	  flash[:notice] = "An item titled: #{@item.name} with barcode: #{@item.barcode} has been created successfully."
       redirect_to root_url
     else

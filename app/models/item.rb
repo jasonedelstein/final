@@ -4,6 +4,7 @@ class Item < ActiveRecord::Base
   enum condition: [:good, :damaged, :acceptable ]
 
   has_many :notes
+  has_many :accessories, :through => :kits
   belongs_to :category
   belongs_to :type
   belongs_to :user, :foreign_key => :borrower_id
