@@ -5,17 +5,8 @@ class UsersController < ApplicationController
   before_action :require_admin, only: [:index]
   before_action :set_search
 
-  autocomplete :user, :email
-  
   def set_search
 	@search_target = "users"
-  end
-  
-  def require_login
-    @user = User.find_by(id: session[:user_id])
-    if @user.blank?
-      redirect_to root_url, notice: "Please log in first."
-    end
   end
 
   def authorize_user

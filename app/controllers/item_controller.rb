@@ -2,8 +2,6 @@ class ItemController < ApplicationController
 
   before_action :set_search
 
-  autocomplete :item, :barcode
-
   def set_search
 	 @search_target = "item"
   end

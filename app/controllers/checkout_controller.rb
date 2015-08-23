@@ -1,5 +1,7 @@
 class CheckoutController < ApplicationController
 
+  before_action :require_login
+
   def index
     @item = Item.new
   end

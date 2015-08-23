@@ -10,33 +10,47 @@
   </ul>
 <% end %>
 
-<%= form_tag users_path do %>
+<%= form_tag({:action => 'create', :controller => 'users'}, {:class => 'form-horizontal'}) do %>
 
-  <div>
-    <%= label_tag :first_name %>:
-    <%= text_field_tag :first_name %>
+  <div class="form-group">
+    <%= label_tag :first_name, 'First name:', class: 'col-sm-2 control-label' %>
+	<div class="col-sm-5">
+		<%= text_field_tag :first_name, nil, class: 'form-control' %>
+	</div>
   </div>
   
-    <div>
-    <%= label_tag :last_name %>:
-    <%= text_field_tag :last_name %>
+    <div class="form-group">
+	  <%= label_tag :last_name, 'Last name:', class: 'col-sm-2 control-label' %>
+		<div class="col-sm-5">
+			<%= text_field_tag :last_name, nil, class: 'form-control' %>
+		</div>
    </div>
 
-  <div>
-    <%= label_tag :email %>:
-    <%= text_field_tag :email %>
+  <div class="form-group">
+    <%= label_tag :email, 'Email address:', class: 'col-sm-2 control-label' %>
+    <div class="col-sm-5">
+		<%= text_field_tag :email, nil, class: 'form-control' %>
+	</div>
   </div>
 
-  <div>
-    <%= label_tag :password %>:
-    <%= password_field_tag :password %>
+  <div class="form-group">
+    <%= label_tag :password, 'Password:', class: 'col-sm-2 control-label' %>
+    <div class="col-sm-5">
+		<%= password_field_tag :password, nil, class: 'form-control' %>
+	</div>
   </div>
 
-  <div>
-    <%= label_tag :password_confirmation, "Password confirmation" %>:
-    <%= password_field_tag :password_confirmation %>
+  <div class="form-group">
+    <%= label_tag :password_confirmation, "Password confirmation:", class: 'col-sm-2 control-label' %>
+    <div class="col-sm-5">
+		<%= password_field_tag :password_confirmation, nil, class: 'form-control' %>
+	</div>
   </div>
 
-  <%= submit_tag "Create user" %>
-
+  <div class="form-group">
+	<div class="col-sm-offset-2 col-sm-10">
+		<%= submit_tag "Create user", class: 'btn btn-default' %>
+	</div>
+  </div>
+	
 <% end %>
