@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   
   root 'item#index'
   
+  post '/accessory' => 'item#create_accessory'
   resources :item
   
   patch '/users/promote/:id' => 'users#promote'

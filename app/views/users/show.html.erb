@@ -51,7 +51,7 @@
 
 <% @fines = @user.fines.where(paid: false) %>
 <% if @fines.empty? %>
-<p>There are no unpaid fines!</p>
+<div>There are no unpaid fines.</div>
 <% else %> 
 
 <% @fines = @fines.page(params[:page]).per(5).order(:created_on) %>

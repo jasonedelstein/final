@@ -12,4 +12,16 @@ class ApplicationController < ActionController::Base
   
   end
   
+    def authorize_user
+    if @user.id != params[:id].to_i && session[:admin].to_s != "true"
+      redirect_to root_url, notice: "Not permitted."
+    end
+  end
+  
+  def require_admin
+	if !session[:admin]
+		redirect_to :back, notice: "Sorry, only admins may do that."
+	end
+  end
+  
 end

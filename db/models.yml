@@ -44,7 +44,6 @@ Fine
   
 Accessory
   name: string
-  item_id: integer
   
 Kit
   item_id: integer

@@ -9,23 +9,11 @@ class UsersController < ApplicationController
 	@search_target = "users"
   end
 
-  def authorize_user
-    if @user.id != params[:id].to_i && session[:admin].to_s != "true"
-      redirect_to root_url, notice: "Not permitted."
-    end
-  end
-  
-  def require_admin
-	if !session[:admin]
-		redirect_to root_url, notice: "Sorry, only admins may do that."
-	end
-  end
-
   def index
   
     if params["keyword"].present?
-      k = params["keyword"].strip
-	  @users = User.where("(first_name LIKE :search) or (last_name LIKE :search) or (first_name || ' ' || last_name LIKE :search)", :search => "%#{k}%")
+      k = params["keyword"].strip.downcase
+	  @users = User.where("(LOWER(first_name) LIKE :search) or (LOWER(last_name) LIKE :search) or (LOWER(first_name) || ' ' || LOWER(last_name) LIKE :search)", :search => "%#{k}%")
 	else
       @users = User.all
     end
@@ -44,7 +32,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new
     @user.first_name = params[:first_name]
-    @user.first_name = params[:last_name]
+    @user.last_name = params[:last_name]
 	@user.email = params[:email]
     @user.password = params[:password]
     @user.password_confirmation = params[:password_confirmation]
@@ -62,6 +50,7 @@ class UsersController < ApplicationController
   end
 
   def update
+	@user = User.find_by_id(params[:id])
     @user.first_name = params[:first_name]
 	@user.last_name = params[:last_name]
     

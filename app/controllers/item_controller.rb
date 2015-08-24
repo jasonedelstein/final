@@ -1,6 +1,7 @@
 class ItemController < ApplicationController
 
   before_action :set_search
+  before_action :require_admin, except: [:index, :set_search, :show]
 
   def set_search
 	 @search_target = "item"
@@ -33,11 +34,13 @@ class ItemController < ApplicationController
   end
 
   def edit
+	session[:return] ||= request.referrer
     @item = Item.find_by(:id => params["id"])
   end
 
   def new
     @item = Item.new
+	@accessory = Accessory.new
   end
 
   def create
@@ -55,15 +58,18 @@ class ItemController < ApplicationController
 	
     if @item.save
 			
-	if params[:accessory_id]
-		@kit = Kit.new
-		@kit.item_id = @item.id
-		@kit.accessory_id = params[:accessory_id]
-		@kit.save
-	end
-	
+		if params[:accessory_ids]
+			ids = params[:accessory_ids]
+			ids.each do |i|
+				@kit = Kit.new
+				@kit.item_id = @item.id
+				@kit.accessory_id = i
+				@kit.save
+			end
+		end
+		
 	  flash[:notice] = "An item titled: #{@item.name} with barcode: #{@item.barcode} has been created successfully."
-      redirect_to root_url
+      redirect_to item_url(@item.id)
     else
       render 'new'
     end
@@ -71,8 +77,8 @@ class ItemController < ApplicationController
 
   def index
   if params["keyword"].present?
-      k = params["keyword"].strip
-      @items = Item.where("name LIKE ?", "%#{k}%")
+      k = params["keyword"].strip.downcase
+      @items = Item.where("LOWER(name) LIKE ?", "%#{k}%")
     else
       @items = Item.all
     end
@@ -107,4 +113,17 @@ class ItemController < ApplicationController
     @item = Item.find_by(:id => params["id"])
   end
   
+  def create_accessory
+	@item = Item.new
+	@accessory = Accessory.new
+	@accessory.name = params[:name]
+	@accessory.save
+	
+	if @accessory.save
+		flash[:notice] = "A new accessory named #{@accessory.name} has been created."
+		redirect_to new_item_url
+	else
+		render 'item/new'
+    end
+  end
 end

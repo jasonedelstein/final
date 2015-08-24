@@ -28,12 +28,12 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li><a href="/item">Items</a></li>
 		  <% if session[:admin] %>
 		  <li><a href="/users">Users</a></li>
 		  <% end %>
+		  <% if session[:id] %>
           <li><a href="/checkout">Item circulation</a></li>
-
+		  <% end %>
           <form action="/<%= @search_target %>" class="navbar-form navbar-left" role="search">
             <div class="form-group">
               <input value="<%= params[:keyword] %>" name="keyword" type="text" class="form-control" placeholder="Search">

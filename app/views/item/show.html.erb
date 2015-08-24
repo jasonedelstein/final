@@ -23,7 +23,7 @@
   </div>
   
   <div>
-	<%= label_tag :category %>: 
+	<%= label_tag :borrow_count %>: 
 	<%= @item.borrow_count %>.
   </div>
   
@@ -35,7 +35,7 @@
   <div>
 	<label>Accessories for this item</label>:
 	<% @kits = Kit.where(:item_id => @item.id).all %>
-	<% if @kits.nil? %>
+	<% if @kits.empty? %>
 	This item has no accessories.
 	<% else %>
 	<ul>

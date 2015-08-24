@@ -9,88 +9,105 @@
 </p>
 <% end %>
 
-<%= form_tag "/item/#{@item.id}", :method => "patch" do %>
+<%= form_tag "/item/#{@item.id}", :method => "patch", :class => 'form-horizontal' do %>
 
-  <div>
-    <label>Name:</label>
-    <input type="text" name="name" value="<%= @item.name %>" size="30">
+  <div class="form-group">
+    <%= label_tag :name, 'Name', class: 'col-sm-2 control-label' %>
+    <div class="col-sm-5">
+		<input type="text" class="form-control" name="name" value="<%= @item.name %>" size="30">
+	</div>
   </div>
 
-  <div>
-    <label>Barcode:</label>
-    <input type="text" name="barcode" value="<%= @item.barcode %>" size="30">
-  </div>
+  <div class="form-group">
+    <%= label_tag :name, 'Barcode', class: 'col-sm-2 control-label' %>
+	<div class="col-sm-5">
+		<input type="text" class="form-control" name="barcode" value="<%= @item.barcode %>"  size="30">
+	</div>
+   </div>
   
-  <div>
-    <label>Status:</label>
-    <select name="status">
-	<% Item.statuses.each do |s| %>
-		<% if @item.status == s.first %>
-			<option selected value="<%= s.first %>"><%= s.first %></option>
-		<% else %>
-			<option value="<%= s.first %>"><%= s.first %></option>
+  <div class="form-group">
+    <%= label_tag :status, 'Status', class: 'col-sm-2 control-label' %>
+	<div class="col-sm-5">
+		<select class="form-control" name="status">
+		<% Item.statuses.each do |s| %>
+			<% if @item.status == s.first %>
+				<option selected value="<%= s.first %>"><%= s.first %></option>
+			<% else %>
+				<option value="<%= s.first %>"><%= s.first %></option>
+			<% end %>
 		<% end %>
-    <% end %>
-	</select>
+		</select>
+	</div>
   </div>
   
   
-  <div>
-	<label>Category:</label>
-      <select name="category_id">
-    <% Category.all.each do |c| %>
-		<% if @item.category.id == c.id %>
-			<option selected value="<%= c.id %>"> <%= c.name %></option>
-		<% else %>
-			<option value="<%= c.id %>"> <%= c.name %></option>
+  <div class="form-group">
+	<%= label_tag :category, 'Category', class: 'col-sm-2 control-label' %>
+      <div class="col-sm-5">
+		<select class="form-control" name="category_id">
+		<% Category.all.each do |c| %>
+			<% if @item.category.id == c.id %>
+				<option selected value="<%= c.id %>"> <%= c.name %></option>
+			<% else %>
+				<option value="<%= c.id %>"> <%= c.name %></option>
+			<% end %>
 		<% end %>
-    <% end %>
-  </select>
+	  </select>
+	</div>
   </div>
   
-  <div>
-	<label>Type:</label>
-      <select name="type_id">
-    <% Type.all.each do |t| %>
-		<% if @item.type.id == t.id %>
-			<option selected value="<%= t.id %>"> <%= t.name %></option>
-		<% else %>
-			<option value="<%= t.id %>"> <%= t.name %></option>
+  <div class="form-group">
+	<%= label_tag :type, 'Type', class: 'col-sm-2 control-label' %>
+    <div class="col-sm-5">  
+		<select class="form-control" name="type_id">
+		<% Type.all.each do |t| %>
+			<% if @item.type.id == t.id %>
+				<option selected value="<%= t.id %>"> <%= t.name %></option>
+			<% else %>
+				<option value="<%= t.id %>"> <%= t.name %></option>
+			<% end %>
 		<% end %>
-    <% end %>
-  </select>
+	  </select>
+	</div>
   </div>
   
-  <div>
-    <label>Condition:</label>
-    <select name="condition">
-	<% Item.conditions.each do |c| %>
-		<% if @item.condition == c.first %>
-			<option selected value="<%= c.first %>"><%= c.first %></option>
-		<% else %>
-			<option value="<%= c.first %>"><%= c.first %></option>
+  <div class="form-group">
+    <%= label_tag :condition, 'Condition', class: 'col-sm-2 control-label' %>
+    <div class="col-sm-5">
+		<select class="form-control" name="condition">
+		<% Item.conditions.each do |c| %>
+			<% if @item.condition == c.first %>
+				<option selected value="<%= c.first %>"><%= c.first %></option>
+			<% else %>
+				<option value="<%= c.first %>"><%= c.first %></option>
+			<% end %>
 		<% end %>
-    <% end %>
-	</select>
-  </div>
+		</select>
+	</div>
+   </div>
   
-    <div>
-	<label>Accessories:</label>
+    <div clss="form-group">
+	<%= label_tag :accessory, 'Accessories', class: 'col-sm-2 control-label' %>
     
 	<!-- a bad habit, but I can't think of how else to do this cute thing I'm trying to do -->
 	<% @accessories = Accessory.all %>
-	<ul>
+	<div class="col-sm-5">
 	<% @accessories.each do |a| %>
 	<% if Kit.where(:item_id => @item.id, :accessory_id => a.id).exists? %>
-		<li><%= check_box_tag "accessory_ids[]", a.id, :checked => true %>   	<%= label_tag a.name %></li>
+		<%= check_box_tag "accessory_ids[]", a.id, :checked => true %>   	<%= label_tag a.name %>
 	<% else %>
-		<li><%= check_box_tag "accessory_ids[]", a.id, nil %>   <%= label_tag a.name %></li>
+		<%= check_box_tag "accessory_ids[]", a.id, nil %>   <%= label_tag a.name %>
 	<% end %>
     <% end %>
-	</ul>
+	</div>
   </select>
   </div>
 
-  <input type="submit" value="Update">
+  
+  <div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<%= submit_tag "Update item", class: 'btn btn-default' %>
+		</div>
+	</div>
 
 <% end %>
