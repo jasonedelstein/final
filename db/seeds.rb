@@ -10,23 +10,31 @@ puts "The database just died, man. GAME OVER! GAME OVER!"
 
 case_accessory = Accessory.create :name => "Laptop case"
 carrying_bag_accessory = Accessory.create :name => "Carrying bag"
+camera_lens_accessory = Accessory.create :name => "Camera lens kit"
 
 puts "There are now #{Accessory.count} accessories in the database."
 
-jason = User.create :first_name => "Jason", :last_name => "Edelstein", :created_on => DateTime.new(2015, 7, 29), :admin => true, :password => "jasone1", :email => "jasone@uchicago.edu"
+jason = User.create :first_name => "Jason", :last_name => "Edelstein", :created_on => DateTime.new(2015, 7, 29), :admin => true, :password => "jasone", :email => "jasone@uchicago.edu"
 thalia = User.create :first_name => "Thalia", :last_name => "Kapica", :created_on => DateTime.new(2015, 7, 29), :admin => false, :password => "jasone", :email => "baigan@gmail.com"
+randomguy = User.create :first_name => "Random", :last_name => "Guy", :created_on => DateTime.new(2015, 7, 29), :admin => false, :password => "jasone", :email => "jason.b.edelstein@gmail.com"
+randomgal = User.create :first_name => "Random", :last_name => "Gal", :created_on => DateTime.new(2015, 7, 29), :admin => false, :password => "jasone", :email => "fake@fake.com"
+thatperson = User.create :first_name => "That", :last_name => "Person", :created_on => DateTime.new(2015, 7, 29), :admin => false, :password => "jasone", :email => "reallyfake@fake.com"
 
 puts "There are now #{User.count} users in the database."
 
 laptopcat = Category.create :name => "Laptops", :replacement_cost => 1500
 ipadcat = Category.create :name => "iPads", :replacement_cost => 900
 adaptercat = Category.create :name => "Power Adapters", :replacement_cost => 90
+cameracat = Category.create :name => "Cameras", :replacement_cost => 700
+videocat = Category.create :name => "Video Equipment", :replacement_cost => 1000
 
 puts "There are now #{Category.count} categories in the database."
 
 adaptertype = Type.create :name => "8 Hour Adapter Borrow", :borrow_duration => "8", :late_fee => 10
 laptoptype = Type.create :name => "8 Hour Laptop Borrow", :borrow_duration => "8", :late_fee => 20
 ipadtype = Type.create :name => "8 Hour iPad Borrow", :borrow_duration => "8", :late_fee => 15
+cameratype = Type.create :name => "8 Hour Camera Borrow", :borrow_duration => "8", :late_fee => 10
+videotype = Type.create :name => "8 Hour Video Borrow", :borrow_duration => "8", :late_fee => 15
 
 puts "There are now #{Type.count} types in the database."
 
@@ -41,6 +49,8 @@ puts "There are now #{Item.count} items in the database."
 kit_dell_case = Kit.create :item_id => dell.id, :accessory_id => case_accessory.id
 kit_mac_case = Kit.create :item_id => mac.id, :accessory_id => case_accessory.id
 kit_mac_bag = Kit.create :item_id => mac.id, :accessory_id => carrying_bag_accessory.id
+kit_ipad_case = Kit.create :item_id => ipad.id, :accessory_id => carrying_bag_accessory.id
+kit_dell_bag = Kit.create :item_id => dell.id, :accessory_id => carrying_bag_accessory.id
 
 puts "There are now #{Kit.count} kits in the database."
 
