@@ -31,7 +31,7 @@
 		  <% if session[:admin] %>
 		  <li><a href="/users">Users</a></li>
 		  <% end %>
-		  <% if session[:id] %>
+		  <% if session[:user_id] %>
           <li><a href="/checkout">Item circulation</a></li>
 		  <% end %>
           <form action="/<%= @search_target %>" class="navbar-form navbar-left" role="search">
