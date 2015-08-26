@@ -1,7 +1,10 @@
+
+<% if session[:admin] %>
 <div>
   <h2><%= @item.name %>  <%= link_to "Edit this item", edit_item_path(@item.id), class: 'btn btn-md btn-primary left' %></h2>
   <div></div>
-  
+ <% end %>
+ 
   <div>
     <%= label_tag :barcode %>: 
 	<%= @item.barcode %>.
